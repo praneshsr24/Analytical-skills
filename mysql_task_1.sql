@@ -1,15 +1,11 @@
 -- MYSQL_TASK_1 PROJECT
 -- Description: Employee Management System with Constraints, Joins, Views and Indexes
 
-
 -- 1. Create Database
-
 CREATE DATABASE MYSQL_TASK_1;
 USE MYSQL_TASK_1;
 
-
 -- 2. Create Departments Table
-
 CREATE TABLE departments (
     dept_id VARCHAR(5) PRIMARY KEY,
     dept_name VARCHAR(30)
@@ -23,9 +19,7 @@ INSERT INTO departments VALUES
 ('D105', 'Marketing'),
 ('D106', 'Operations');
 
-
 -- 3. Create Employees Table
-
 CREATE TABLE employees (
     emp_id VARCHAR(5) PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
@@ -37,9 +31,7 @@ CREATE TABLE employees (
     FOREIGN KEY (dept_id) REFERENCES departments(dept_id)
 );
 
-
 -- 4. Insert Employee Records
-
 INSERT INTO employees VALUES
 ('E001', 'Arun', 'arun@gmail.com', 25, 45000.00, 'D101', 'Chennai'),
 ('E002', 'Rahul', 'rahul@gmail.com', 28, 55000.00, 'D102', 'Coimbatore'),
@@ -62,21 +54,15 @@ INSERT INTO employees VALUES
 ('E019', 'Gokul', 'gokul@gmail.com', 31, 64000.00, 'D105', 'Trichy'),
 ('E020', 'Harini', 'harini@gmail.com', 29, 58000.00, 'D106', 'Bangalore');
 
-
 -- 5. Salary Update (15% increment)
-
 UPDATE employees
 SET salary = salary + (salary * 15/100);
 
-
 -- 6. Delete Employee Example
-
 DELETE FROM employees
 WHERE emp_id = 'E013';
 
-
 -- 7. Create Orders Table
-
 CREATE TABLE orders (
     order_id INT PRIMARY KEY,
     emp_id VARCHAR(5),
@@ -85,9 +71,7 @@ CREATE TABLE orders (
     FOREIGN KEY (emp_id) REFERENCES employees(emp_id)
 );
 
-
 -- 8. Insert Order Records
-
 INSERT INTO orders VALUES
 (1001, 'E001', 15000.00, '2026-01-05'),
 (1002, 'E002', 22000.00, '2026-01-07'),
@@ -100,17 +84,13 @@ INSERT INTO orders VALUES
 (1009, 'E009', 27000.00, '2026-01-25'),
 (1010, 'E010', 10000.00, '2026-01-28');
 
-
 -- 9. Basic Queries
-
 SELECT * FROM employees;
 SELECT name, salary FROM employees WHERE salary > 50000;
 SELECT name FROM employees WHERE name LIKE 'S%';
 SELECT * FROM employees ORDER BY city ASC, salary DESC;
 
-
 -- 10. Aggregate Queries
-
 SELECT city, COUNT(name) AS total_employees
 FROM employees
 GROUP BY city;
@@ -122,9 +102,7 @@ INNER JOIN departments d
 ON d.dept_id = e.dept_id
 GROUP BY d.dept_name;
 
-
 -- 11. Join Queries
-
 SELECT E.name, D.dept_name
 FROM employees E
 INNER JOIN departments D
@@ -135,9 +113,7 @@ FROM employees E
 LEFT JOIN orders O
 ON E.emp_id = O.emp_id;
 
-
 -- 12. View Creation
-
 CREATE VIEW emp_and_their_dept AS
 SELECT e.name AS EMPLOYEE_NAME,
        d.dept_name AS DEPARTMENT_NAME
@@ -147,8 +123,6 @@ ON e.dept_id = d.dept_id;
 
 DROP VIEW emp_and_their_dept;
 
-
 -- 13. Index Creation
-
 CREATE INDEX idx_employee_name ON employees (name);
 CREATE INDEX idx_city_salary ON employees (city, salary);
